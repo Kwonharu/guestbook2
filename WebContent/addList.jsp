@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ page import="com.javaex.dao.GuestBookDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.javaex.vo.GuestBookVo" %>
+
+<%
+	GuestBookDao guestBookDao = new GuestBookDao();
+	List<GuestBookVo> guestBookList = GuestBookDao.guestBookSelect("");
+	
+	//System.out.println(personList);
+%>
     
 <!DOCTYPE html>
 <html>
@@ -26,10 +36,10 @@
 	</form>
 	<br>
 
-	
+	<%for(int i = 0; i<personList.size(); i++){%>
 	<table border="1" width="540px">
 		<tr>
-			<td>[1]</td>
+			<td><%=personList.get(i).get %></td>
 			<td>이효리</td>
 			<td>2022-01-01</td>
 			<td><a href="">삭제</a></td>
@@ -39,32 +49,7 @@
 		</tr>
 	</table>
 	<br>
-	
-	<table border="1" width="540px">
-		<tr>
-			<td>[1]</td>
-			<td>이효리</td>
-			<td>2022-01-01</td>
-			<td><a href="">삭제</a></td>
-		</tr>
-		<tr>
-			<td colspan="4">방문하고 갑니다.</td>
-		</tr>
-	</table>
-	<br>
-
-	<table border="1" width="540px">
-		<tr>
-			<td>[1]</td>
-			<td>이효리</td>
-			<td>2022-01-01</td>
-			<td><a href="">삭제</a></td>
-		</tr>
-		<tr>
-			<td colspan="4">방문하고 갑니다.</td>
-		</tr>
-	</table>
-	<br>
+	<%}%>	
 </body>
 </html>
 
