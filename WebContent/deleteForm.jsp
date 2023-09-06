@@ -9,11 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+	<form action="./delete.jsp">
 		<table>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name=""></td>
+				<td><input type="password" name="password"></td>
 				<td><button type="submit">삭제</button></td>
 			</tr>
 		</table>

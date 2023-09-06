@@ -100,7 +100,7 @@ public class GuestBookDao {
 	}
 
 	// 사람삭제
-	public int guestBookDelete(int guestBookPW) {
+	public int guestBookDelete(String guestBookPW) {
 
 		int count = -1;
 
@@ -116,7 +116,7 @@ public class GuestBookDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩
-			pstmt.setInt(1, guestBookPW);
+			pstmt.setString(1, guestBookPW);
 
 			// 실행
 			count = pstmt.executeUpdate();

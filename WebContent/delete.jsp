@@ -3,17 +3,16 @@
 <%@ page import="com.javaex.dao.GuestBookDao" %>
 
 <%
-//파라미터 꺼내기 (db 전달해서 삭제할 id값)
-	String id = request.getParameter("id");
-	int personId = Integer.parseInt(id);
+	//파라미터 꺼내기 (db 전달해서 삭제할 id값)
+	String password = request.getParameter("password");
 	
-	System.out.println(personId);
+	System.out.println(password);
 	
-	//personDao의 personDelete() 통해서 지우기
-	GuestBookDao personDao = new GuestBookDao();
-	int count = personDao.personDelete(personId);
+	
+	GuestBookDao guestBookDao = new GuestBookDao();
+	int count = guestBookDao.guestBookDelete(password);
 	System.out.println(count);
 	
 	//리스트 출력 --> 리스트 리다이렉트
-	response.sendRedirect("./list.jsp");
+	response.sendRedirect("./addList.jsp");
 %>
