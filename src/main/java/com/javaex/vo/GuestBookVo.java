@@ -2,69 +2,100 @@ package com.javaex.vo;
 
 public class GuestBookVo {
 	
-	private int person_id;
+	private int no;
 	private String name;
-	private String hp;
-	private String company;
+	private String password;
+	private String content;
+	private String reg_date;
 	
 	
 	public GuestBookVo() {
 		
 	}
 
-	public GuestBookVo(int person_id, String name, String hp, String company) {
+
+	public GuestBookVo(int no, String name, String password, String content, String reg_date) {
 		super();
-		this.person_id = person_id;
+		this.no = no;
 		this.name = name;
-		this.hp = hp;
-		this.company = company;
-	}
-	
-	public GuestBookVo(String name, String hp, String company) {
-		super();
-		this.name = name;
-		this.hp = hp;
-		this.company = company;
+		this.password = password;
+		this.content = content;
+		this.reg_date = reg_date;
 	}
 
-	
-	public int getPerson_id() {
-		return person_id;
+	public GuestBookVo(int no, String name, String content, String reg_date) {
+		super();
+		this.no = no;
+		this.name = name;
+		this.content = content;
+		this.reg_date = reg_date;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+
+	public GuestBookVo(String name, String password, String content) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.content = content;
 	}
+
+
+	public int getNo() {
+		return no;
+	}
+
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getHp() {
-		return hp;
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setHp(String hp) {
-		this.hp = hp;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getCompany() {
-		return company;
+
+	public String getContent() {
+		return content;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	
+
+	public String getReg_date() {
+		return reg_date;
+	}
+
+
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
+
+
 	@Override
 	public String toString() {
-		return "PersonVo [person_id=" + person_id + ", name=" + name + ", hp=" + hp + ", company=" + company + "]";
+		return "GuestBookVo [no=" + no + ", name=" + name + ", password=" + password + ", content=" + content
+				+ ", reg_date=" + reg_date + "]";
 	}
+
 	
 }
 

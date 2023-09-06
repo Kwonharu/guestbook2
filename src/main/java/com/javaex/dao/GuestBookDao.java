@@ -65,7 +65,7 @@ public class GuestBookDao {
 	}
 
 	// 사람등록
-	public int guestBookInsert(GuestBookVo personVo) { //Vo로 받았음
+	public int guestBookInsert(GuestBookVo guestBookVo) { //Vo로 받았음
 		int count = -1;
 
 		this.getConnect();
@@ -74,15 +74,15 @@ public class GuestBookDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " insert into person ";
-			query += " values(seq_person_id.nextval, ?, ?, ?) ";
+			query += " insert into guestbook ";
+			query += " values(seq_guestbook_id.nextval, ?, ?, ?, SYSDATE) ";
 
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩 vo에서 값을 setter로 꺼낸다
-			pstmt.setString(1, personVo.getName());
-			pstmt.setString(2, personVo.getHp());
-			pstmt.setString(3, personVo.getCompany());
+			pstmt.setString(1, guestBookVo.getName());
+			pstmt.setString(2, guestBookVo.getPassword());
+			pstmt.setString(3, guestBookVo.getContent());
 
 			// 실행
 			count = pstmt.executeUpdate();
@@ -100,7 +100,7 @@ public class GuestBookDao {
 	}
 
 	// 사람삭제
-	public int guestBookDelete(int personId) {
+	public int guestBookDelete(int guestBookPW) {
 
 		int count = -1;
 
@@ -110,13 +110,13 @@ public class GuestBookDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " delete from person ";
-			query += " where person_id = ? ";
+			query += " delete from guestbook ";
+			query += " where password = ? ";
 
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩
-			pstmt.setInt(1, personId);
+			pstmt.setInt(1, guestBookPW);
 
 			// 실행
 			count = pstmt.executeUpdate();
@@ -137,7 +137,7 @@ public class GuestBookDao {
 
 		
 	//수정
-	public int guestBook(GuestBookVo personVo) {
+	public int guestBookUpdate(GuestBookVo guestBookVo) {
 
 		int count = -1;
 
@@ -147,19 +147,19 @@ public class GuestBookDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " update person ";
+			query += " update guestbook ";
 			query += " set name = ?, ";
-			query += " 	   hp = ?, ";
-			query += "     company = ? ";
-			query += " where person_id = ? ";
+			query += " 	   content = ?, ";
+			query += "     reg_date = ? ";
+			query += " where no = ? ";
 			
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩
-			pstmt.setString(1, personVo.getName());
-			pstmt.setString(2, personVo.getHp());
-			pstmt.setString(3, personVo.getCompany());
-			pstmt.setInt(4,personVo.getPerson_id());
+			pstmt.setString(1, guestBookVo.getName());
+			pstmt.setString(2, guestBookVo.getContent());
+			pstmt.setString(3, guestBookVo.getReg_date());
+			pstmt.setInt(4, guestBookVo.getNo());
 
 			// 실행
 			count = pstmt.executeUpdate();
@@ -178,56 +178,6 @@ public class GuestBookDao {
 	}
 
 	
-	// 사람리스트  personSelect(String keyword) 로 통합
-	/*
-	public List<PersonVo> personSelect() {
-
-		List<PersonVo> personList = new ArrayList<PersonVo>();
-
-		this.getConnect();
-
-		try {
-			// 3. SQL문 준비 / 바인딩 / 실행
-			// SQL문 준비
-			String query = "";
-			query += " select  person_id, ";
-			query += "         name, ";
-			query += "         hp, ";
-			query += "         company ";
-			query += " from person ";
-
-			pstmt = conn.prepareStatement(query);
-
-			// 바인딩
-
-			// 실행
-			rs = pstmt.executeQuery();
-
-			// 4.결과처리
-			while (rs.next()) {
-
-				int personId = rs.getInt(1);
-				String name = rs.getString(2);
-				String hp = rs.getString(3);
-				String company = rs.getString(4);
-
-				PersonVo personVo = new PersonVo(personId, name, hp, company);
-
-				personList.add(personVo);
-
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		}
-
-		this.close();
-
-		return personList;
-
-	}
-	*/
-	
 	// 검색
 	public List<GuestBookVo> guestBookSelect(String keyword) {
 
@@ -239,16 +189,16 @@ public class GuestBookDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " select  person_id, ";
+			query += " select  no, ";
 			query += "         name, ";
-			query += "         hp, ";
-			query += "         company ";
-			query += " from person ";
+			query += "         content, ";
+			query += "         reg_date ";
+			query += " from guestbook ";
 			/**********************************************************************/
 			if(!keyword.equals("")) { //keyword가 ""가 아니면 ==> keyword가 있으면 검색
 				query += " where name like ? ";
 			}
-			query += " order by person_id ";
+			query += " order by no ";
 			
 			pstmt = conn.prepareStatement(query);
 
@@ -263,14 +213,14 @@ public class GuestBookDao {
 			// 4.결과처리
 			while (rs.next()) {
 
-				int personId = rs.getInt(1);
+				int no = rs.getInt(1);
 				String name = rs.getString(2);
-				String hp = rs.getString(3);
-				String company = rs.getString(4);
+				String content = rs.getString(3);
+				String reg_date = rs.getString(4);
 
-				GuestBookVo personVo = new GuestBookVo(personId, name, hp, company);
+				GuestBookVo guestBookVo = new GuestBookVo(no, name, content, reg_date);
 
-				guestBookList.add(personVo);
+				guestBookList.add(guestBookVo);
 
 			}
 
@@ -294,11 +244,11 @@ public class GuestBookDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " select  person_id, ";
+			query += " select  no, ";
 			query += "         name, ";
-			query += "         hp, ";
-			query += "         company ";
-			query += " from person ";
+			query += "         content, ";
+			query += "         reg_date ";
+			query += " from guestbook ";
 			query += " where person_id = ? ";
 			
 			pstmt = conn.prepareStatement(query);
@@ -312,12 +262,12 @@ public class GuestBookDao {
 			// 4.결과처리
 			while (rs.next()) {
 
-				int personId = rs.getInt(1);
+				int no = rs.getInt(1);
 				String name = rs.getString(2);
-				String hp = rs.getString(3);
-				String company = rs.getString(4);
+				String content = rs.getString(3);
+				String reg_date = rs.getString(4);
 
-				guestBookVo = new GuestBookVo(personId, name, hp, company);
+				guestBookVo = new GuestBookVo(no, name, content, reg_date);
 
 			}
 

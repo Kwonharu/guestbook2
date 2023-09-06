@@ -6,32 +6,30 @@
 <%@ page import="com.javaex.dao.GuestBookDao" %>
     
 <%
+	request.setCharacterEncoding("UTF-8");
     //파라미터 값 꺼내오기
-        	request.setCharacterEncoding("UTF-8");
-        	String name = request.getParameter("name");
-        	String hp = request.getParameter("hp");
-        	String company = request.getParameter("company");
-        	
-        	//vo로 묶기
-        	GuestBookVo personVo = new GuestBookVo();
-        	personVo.setName(name);
-        	personVo.setHp(hp);
-        	personVo.setCompany(company);
-        	
-        	//잘 왔나 test
-        	System.out.println(personVo);
-        	
-        	
-        	//Dao를 통해서 데이터 저장
-        	GuestBookDao personDao = new GuestBookDao();
-        	int count = personDao.personInsert(personVo);
-        	//System.out.println(personDao);
-        	
-        	///////////////////////////////////////////////////////////////
-        	//리스트 뿌리기 (http://localhost:8000/phonebook2/list.jsp) --> 리다이렉트
-        		
-        	response.sendRedirect("./list.jsp");
-    %>    
+
+	String name = request.getParameter("name");
+	String password = request.getParameter("password");
+	String content = request.getParameter("content");
+	
+	//vo로 묶기
+	GuestBookVo guestBookVo = new GuestBookVo(name, password, content);
+
+	
+	//잘 왔나 test
+	System.out.println(guestBookVo);
+	
+	
+	//Dao를 통해서 데이터 저장
+	GuestBookDao guestBookDao = new GuestBookDao();
+	int count = guestBookDao.guestBookInsert(guestBookVo);
+	
+	///////////////////////////////////////////////////////////////
+	//리스트 뿌리기 (http://localhost:8000/phonebook2/list.jsp) --> 리다이렉트
+		
+	response.sendRedirect("./addList.jsp");
+%>    
 
 
 
