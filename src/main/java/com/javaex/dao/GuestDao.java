@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.vo.GuestBookVo;
+import com.javaex.vo.GuestVo;
 
-public class GuestBookDao {
+public class GuestDao {
 
 	// 필드
 	// 0. import java.sql.*;
@@ -24,7 +24,7 @@ public class GuestBookDao {
 	private String pw = "webdb";
 
 	// 생성자
-	public GuestBookDao() {
+	public GuestDao() {
 	}
 
 	// 메소드 gs
@@ -65,7 +65,7 @@ public class GuestBookDao {
 	}
 
 	// 사람등록
-	public int guestBookInsert(GuestBookVo guestBookVo) { //Vo로 받았음
+	public int guestInsert(GuestVo guestBookVo) { //Vo로 받았음
 		int count = -1;
 
 		this.getConnect();
@@ -100,7 +100,7 @@ public class GuestBookDao {
 	}
 
 	// 사람삭제
-	public int guestBookDelete(String guestBookPW) {
+	public int guestDelete(String guestbookPW) {
 
 		int count = -1;
 
@@ -116,7 +116,8 @@ public class GuestBookDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩
-			pstmt.setString(1, guestBookPW);
+			pstmt.setString(1, guestbookPW);
+
 
 			// 실행
 			count = pstmt.executeUpdate();
@@ -137,7 +138,7 @@ public class GuestBookDao {
 
 		
 	//수정
-	public int guestBookUpdate(GuestBookVo guestBookVo) {
+	public int guestUpdate(GuestVo guestBookVo) {
 
 		int count = -1;
 
@@ -179,9 +180,9 @@ public class GuestBookDao {
 
 	
 	// 검색
-	public List<GuestBookVo> guestBookSelect(String keyword) {
+	public List<GuestVo> guestSelect(String keyword) {
 
-		List<GuestBookVo> guestBookList = new ArrayList<GuestBookVo>();
+		List<GuestVo> guestBookList = new ArrayList<GuestVo>();
 
 		this.getConnect();
 
@@ -218,7 +219,7 @@ public class GuestBookDao {
 				String content = rs.getString(3);
 				String reg_date = rs.getString(4);
 
-				GuestBookVo guestBookVo = new GuestBookVo(no, name, content, reg_date);
+				GuestVo guestBookVo = new GuestVo(no, name, content, reg_date);
 
 				guestBookList.add(guestBookVo);
 
@@ -234,9 +235,9 @@ public class GuestBookDao {
 
 	}
 	
-	public GuestBookVo getGuestBook(int id) {
+	public GuestVo getGuest(int id) {
 
-		GuestBookVo guestBookVo = null;
+		GuestVo guestBookVo = null;
 
 		this.getConnect();
 
@@ -267,7 +268,7 @@ public class GuestBookDao {
 				String content = rs.getString(3);
 				String reg_date = rs.getString(4);
 
-				guestBookVo = new GuestBookVo(no, name, content, reg_date);
+				guestBookVo = new GuestVo(no, name, content, reg_date);
 
 			}
 
